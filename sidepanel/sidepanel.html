@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Forge Prompt Library</title>
+
+  <link rel="stylesheet" href="sidepanel.css" />
+
+</head>
+
+<body>
+
+  <div class="app-header-wrap">
+    <div class="storage-usage-bar">
+      <span id="storage-usage" class="storage-usage" aria-live="polite">Storage: …</span>
+    </div>
+
+  <header class="app-header">
+
+    <div>
+
+      <h1>Forge Prompt Library</h1>
+
+      <p class="subtitle">Organize Forge images by prompt pairs; drag images anywhere in the sidebar. All data is stored locally on your device.</p>
+
+    </div>
+
+    <div class="header-actions">
+
+      <button id="btn-export" class="btn secondary" type="button">Export</button>
+
+      <label class="btn secondary file-label" for="import-file">Import</label>
+
+      <input id="import-file" type="file" accept="application/json,.json" hidden />
+
+      <button id="btn-clear-all" class="btn danger" type="button">Delete All Data</button>
+
+    </div>
+
+  </header>
+  </div>
+
+  <main id="prompt-list" class="prompt-list"></main>
+
+
+
+  <div id="toast" class="toast" hidden></div>
+
+
+
+  <dialog id="confirm-dialog" class="confirm-dialog">
+
+    <form method="dialog">
+
+      <h3 id="confirm-title">Confirm</h3>
+
+      <p id="confirm-message"></p>
+
+      <div class="dialog-actions">
+
+        <button value="cancel" class="btn secondary" type="submit">Cancel</button>
+
+        <button id="confirm-accept" value="accept" class="btn danger" type="submit">Confirm Delete</button>
+
+      </div>
+
+    </form>
+
+  </dialog>
+
+
+
+  <dialog id="image-viewer" class="image-viewer">
+
+    <button type="button" id="viewer-close" class="image-viewer-close" aria-label="Close">
+
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+
+        <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+
+      </svg>
+
+    </button>
+
+    <div id="viewer-stage" class="image-viewer-stage">
+
+      <div id="viewer-canvas" class="image-viewer-canvas">
+
+        <img id="viewer-image" alt="Full image preview" draggable="false" />
+
+      </div>
+
+    </div>
+
+  </dialog>
+
+
+
+  <script type="module" src="sidepanel.js"></script>
+
+</body>
+
+</html>
+
+
