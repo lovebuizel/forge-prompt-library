@@ -157,10 +157,16 @@ Store 名稱為 `thumbnails`，存放**原圖 PNG data URL**：
 ### 分組
 
 ```js
-makePromptKey(positive, negative) => `${positive}\u0000${negative}`
+// lib/utils.js
+normalizePromptText(prompt)
+  // 換行 → 逗號，再 promptToTags → tagsToPrompt（去前後空白、空 tag、`, ` 連接）
+
+// lib/db.js
+makePromptKey(positive, negative)
+  => `${normalizePromptText(positive)}\u0000${normalizePromptText(negative)}`
 ```
 
-相同正+負提示詞歸同一筆；不同 seed 仍同組。
+正規化後相同者歸同一組，例如 `aaa,bbb,ccc` 與 `,aaa,bbb,ccc`；`aaa,bbb` 與 `aaa,\n\nbbb` 亦同組；`<aaa><bbb>`、`<aaa> <bbb>`、`<aaa>, <bbb>` 亦同組（`<...>` 角括號 token 會拆成獨立 tag）。不同 seed 仍同組。
 
 ### 匯出格式（version 2）
 
@@ -283,7 +289,8 @@ Forge 拖曳常帶 URL 而非 `Files`，需支援 URL fetch。
 | `extractPngTextChunks` | 讀 PNG tEXt |
 | `parseParametersString` | 解析 parameters |
 | `parseImageFile` | File → 提示詞 + metadata |
-| `promptToTags` | 提示詞拆 tag（列表顯示） |
+| `normalizePromptText` | 提示詞正規化（分組 key 與儲存用） |
+| `promptToTags` | 提示詞拆 tag（逗號分段 + `<...>` 角括號 token 拆分） |
 | `createImageDataUrl` | 原圖 data URL |
 
 ### lib/db.js
