@@ -8,7 +8,11 @@ Chrome 擴充功能，搭配 **[Stable Diffusion WebUI Forge](https://github.com
 
 ## 示範影片
 
-<video src="demo.mp4" controls width="100%"></video>
+> GitHub README **不支援** `<video>` 內嵌播放（會被過濾掉），因此改用 GIF 預覽；完整含音訊影片請點下方連結。
+
+![Forge Prompt Library 示範預覽](./demo-preview.gif)
+
+▶ **[觀看完整示範影片（MP4，含音訊）](https://github.com/lovebuizel/forge-prompt-library/raw/master/demo.mp4)**
 
 ---
 
@@ -165,6 +169,8 @@ body (flex column, min-height 100dvh)
 prompt-manage-extension/
 ├── manifest.json
 ├── demo.mp4
+├── demo-preview.gif
+├── demo-poster.jpg
 ├── background/service-worker.js
 ├── content/content.js
 ├── lib/db.js
