@@ -8,8 +8,6 @@ Chrome 擴充功能，搭配 **[Stable Diffusion WebUI Forge](https://github.com
 
 ## 示範影片
 
-> GitHub README **不支援** `<video>` 內嵌播放（會被過濾掉），以下為完整示範影片轉成的 GIF。
-
 ![Forge Prompt Library 示範預覽](./demo-preview.gif)
 
 ---
