@@ -1,6 +1,65 @@
 # Forge Prompt Library
 
-Chrome **Manifest V3** 擴充功能，搭配 **Stable Diffusion WebUI Forge** 使用。在 Forge 生圖頁面開啟側欄（Side Panel），依正負提示詞組合管理生成圖片。
+Chrome 擴充功能，搭配 **[Stable Diffusion WebUI Forge](https://github.com/lllyasviel/stable-diffusion-webui-forge)** 使用。將 Forge 生成的 PNG 拖入側欄，依**正提示詞 + 負提示詞**自動分組整理，所有資料保存在本機。
+
+**授權**：[MIT License](LICENSE) · **作者**：[lovebuizel](https://github.com/lovebuizel)
+
+---
+
+## 示範影片
+
+<video src="demo.mp4" controls width="100%"></video>
+
+---
+
+## 快速開始
+
+### 你需要
+
+| 項目 | 說明 |
+|------|------|
+| 瀏覽器 | Google Chrome（建議 **141+**，Side Panel 關閉功能較完整） |
+| 生圖環境 | Forge 運行於 `http://127.0.0.1` 或 `http://localhost` |
+| 圖片格式 | 含 Forge / A1111 `parameters` metadata 的 **PNG** |
+
+> 擴充功能 UI 為英文。資料僅存於本機 IndexedDB，**不會上傳到任何伺服器**。
+
+### 安裝
+
+1. 下載或 clone 本 repo
+2. 開啟 `chrome://extensions/`
+3. 右上角開啟 **開發人員模式**
+4. 點 **載入未封裝項目**，選擇本專案資料夾
+5. 確認工具列出現 **Forge Prompt Library**
+
+### 日常使用
+
+1. **開啟側欄** — 在 Forge 頁面點工具列上的擴充功能圖示，或點右下角的 **Prompt Library** 浮動按鈕
+2. **匯入圖片** — 從 Forge 圖庫將 PNG **拖放**到側欄列表區（任意空白處即可）
+3. **自動分組** — 相同正+負提示詞的圖片會歸到同一組（不同 seed 也同組）
+4. **複製提示詞** — 點單一 tag 複製該 tag；或點 **Copy** 複製整段正/負提示詞
+5. **瀏覽圖片** — 點縮圖開啟全螢幕檢視；滾輪可縮放
+6. **備份資料** — Header 的 **Export** 匯出 JSON；**Import** 還原備份
+
+### 側欄功能一覽
+
+| 區塊 | 用途 |
+|------|------|
+| **Storage** | 顯示本機已用容量（Images / Prompts） |
+| **Export / Import** | 匯出、匯入全部資料 |
+| **Delete All Data** | 清空本機所有資料（需確認） |
+| **提示詞卡片** | 正提示詞（綠）、負提示詞（紅）、備註、縮圖輪播、生成參數 |
+| **Delete Prompt** | 刪除整組提示詞及其圖片 |
+
+### 常見問題
+
+| 問題 | 說明 |
+|------|------|
+| 拖放沒反應 | 側欄須先開啟；Forge 頁面需重新整理（F5） |
+| 無法分組 | PNG 須含 Forge / A1111 的 `parameters`（ComfyUI 原生 JSON 不支援） |
+| 浮動按鈕沒出現 | 僅在 `127.0.0.1` / `localhost` 的 Forge 頁面注入；其他網址需改 `manifest.json` |
+
+---
 
 > **給 AI 的說明**：UI 文案為英文；所有使用者資料存於本機 IndexedDB，不上傳伺服器（副標：`All data is stored locally on your device.`）。主要邏輯在 `sidepanel/sidepanel.js`（~1340 行），儲存層在 `lib/db.js`，PNG 解析在 `lib/utils.js`，Side panel 開關在 `background/service-worker.js`。
 
@@ -105,6 +164,7 @@ body (flex column, min-height 100dvh)
 ```
 prompt-manage-extension/
 ├── manifest.json
+├── demo.mp4
 ├── background/service-worker.js
 ├── content/content.js
 ├── lib/db.js
@@ -307,10 +367,10 @@ Forge 拖曳常帶 URL 而非 `Files`，需支援 URL fetch。
 
 ## 開發與測試
 
-1. `chrome://extensions/` → 開發人員模式 → 載入未封裝項目
-2. 開 Forge → **Prompt Library** 或工具列 icon 開關側欄
-3. 拖 PNG 到列表區 → 自動歸類
-4. 改程式後：重載擴充功能 + F5 刷新 Forge
+安裝步驟見上方 **快速開始 → 安裝**。開發時額外注意：
+
+1. 改程式後：`chrome://extensions/` 重載擴充功能 + Forge 頁 **F5**
+2. 拖 PNG 到列表區 → 自動歸類
 
 Content script 僅匹配 `127.0.0.1` / `localhost`；其他 host 需改 `manifest.json` 與 `background/service-worker.js`。
 
@@ -356,4 +416,3 @@ Content script 僅匹配 `127.0.0.1` / `localhost`；其他 host 需改 `manifes
 |---|---|
 | 作者 | [lovebuizel](https://github.com/lovebuizel) |
 | GitHub | https://github.com/lovebuizel |
-| 網站 | https://www.lovebuizel.com/ |
